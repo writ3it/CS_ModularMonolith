@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modules>
+    <module name="ModuleOne">
+        <source namespace="App\ModuleOne\Part1\"/>
+        <source namespace="App\ModuleOne\Part2\"/>
+        <source namespace="App\ModuleOne\Part3\"/>
+        <source namespace="App\ModuleOne\Part4\"/>
+    </module>
+</modules>

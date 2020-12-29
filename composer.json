@@ -16,9 +16,22 @@
     "squizlabs/php_codesniffer": "^3.5",
     "ext-simplexml": "*"
   },
+  "support": {
+    "source": "https://github.com/writ3it/CS_ModularMonolith",
+    "issues": "https://github.com/writ3it/CS_ModularMonolith/issues"
+  },
   "autoload": {
     "psr-4": {
       "Writ3it\\CodingStandards\\ModularMonolith\\": "ModularMonolith/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Writ3it\\CodingStandards\\Tests\\": "test/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5",
+    "ext-json": "*"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "ModuleOne": {
+    "name": "ModuleOne",
+    "parent": null,
+    "namespaces": [
+      "App\\ModuleOne\\Part1\\",
+      "App\\ModuleOne\\Part2\\",
+      "App\\ModuleOne\\Part3\\",
+      "App\\ModuleOne\\Part4\\"
+    ],
+    "publicNamespaces": [
+      "App\\ModuleOne\\Part1\\",
+      "App\\ModuleOne\\Part2\\Subnamespace\\"
+    ]
+  },
+  "ModuleTwo": {
+    "name": "ModuleTwo",
+    "parent": null,
+    "namespaces": [
+      "App\\ModuleTwo\\Part1\\",
+      "App\\ModuleTwo\\Part2\\"
+    ],
+    "publicNamespaces": [
+      "App\\ModuleTwo\\Part2\\Subnamespace\\"
+    ]
+  }
+}
