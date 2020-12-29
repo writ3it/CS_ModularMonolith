@@ -13,7 +13,7 @@ This standard is a liberal version of this feature (you can use or not).
 You can force standard while collaborating through CI/CD process.
 
 #### Reason 2.
-Monolith it's very popular architecture, but it's a hell for developers.
+Monolith is very popular architecture, but it's a hell for developers.
 Monolithic application (sooner or later) is often called "legacy code". 
 The alternative - isolation provided by composer package feature often is too strong. 
 Package system offers more flexible module implementation.
