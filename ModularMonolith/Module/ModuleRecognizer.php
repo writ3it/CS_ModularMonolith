@@ -20,6 +20,12 @@ class ModuleRecognizer
         foreach ($config->getModules() as $name => $module) {
             $this->modules[$name] = new ModuleDefinition($module);
         }
+        foreach($config->getModules() as $name=>$module){
+            $parent = $module['parent'];
+            if ($parent){
+                $this->modules[$parent]->addChild($this->modules[$module['name']]);
+            }
+        }
     }
 
     /**
@@ -31,7 +37,7 @@ class ModuleRecognizer
         $namespaceOrFullClassName = ModuleDefinition::cleanNamespace($namespaceOrFullClassName);
         foreach ($this->modules as $module) {
             /** @var ModuleDefinition $module */
-            if ($module->containsClass($namespaceOrFullClassName)) {
+            if ($module->containsClass($namespaceOrFullClassName) && !$module->childrenContainsClass($namespaceOrFullClassName)) {
                 return $module;
             }
         }

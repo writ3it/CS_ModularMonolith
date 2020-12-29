@@ -2,7 +2,6 @@
 
 
 namespace Writ3it\CodingStandards\ModularMonolith\Sniffs\General;
-
 use Writ3it\CodingStandards\ModularMonolith\AbstractGroup;
 use Writ3it\CodingStandards\ModularMonolith\AbstractModuleSniff;
 use Writ3it\CodingStandards\ModularMonolith\Groups\NamespaceGroup;
@@ -23,13 +22,18 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
      */
     private $clientModule = null;
 
+    /**
+     * @var string
+     */
+    private $currentNamespace = null;
+
 
     public function __construct()
     {
         $this->groups = array(
             new NamespaceGroup([$this, 'processNamespace']),
             new UseGroup([$this, 'processUse']),
-            new NewGroup([$this, 'processUse'])
+            new NewGroup([$this, 'processNew'])
         );
     }
 
@@ -40,7 +44,14 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
     {
         $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
         $namespace = $group->getContentAsString();
+        $this->currentNamespace = $namespace;
         $this->clientModule = $this->moduleRecognizer->getModuleNameByNamespace($namespace);
+    }
+
+    public function initializeFile()
+    {
+        $this->resetContext();
+        parent::initializeFile();
     }
 
     /**
@@ -50,12 +61,32 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
     {
         $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
         $class = $group->getContentAsString();
-        $dependencyModule = $this->moduleRecognizer->getModuleNameByNamespace($class);
+        $this->checkBoundaryWith($class);
+    }
+
+    public function processNew($group){
+        $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
+        $class = $group->getContentAsString();
+        $this->checkBoundaryWith($class);
+        if ($class{0} !== ModuleDefinition::NS_SEPARATOR) {
+                $possibleClass = $this->currentNamespace.ModuleDefinition::NS_SEPARATOR.$class;
+                $this->checkBoundaryWith($possibleClass);
+        }
+    }
+
+    private function checkBoundaryWith($className){
+        $dependencyModule = $this->moduleRecognizer->getModuleNameByNamespace($className);
         if ($this->clientModule && $dependencyModule && !$this->clientModule->equals($dependencyModule)) {
             $clientModuleName = $this->clientModule->getName();
             $dependencyModuleName = $dependencyModule->getName();
-            $this->addError("BrokenBoundary","Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $class);
+            $this->addError("BrokenBoundary","Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $className);
         }
+    }
+
+    private function resetContext()
+    {
+        $this->currentNamespace = null;
+        $this->clientModule = null;
     }
 
 

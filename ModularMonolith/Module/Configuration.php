@@ -9,6 +9,7 @@ class Configuration
 {
 
     private $modules = [];
+    private $parentModule = null;
 
     public function __construct($configPath)
     {
@@ -26,41 +27,55 @@ class Configuration
 
     private function processConfig(\SimpleXMLElement $config)
     {
-        switch ($config->getName()) {
-            case 'module':
-                $attributes = $config->attributes();
-                $name = $attributes['name']->__toString();
-                $this->addModule($name);
-                $this->processModule($name, $config);
-                break;
-        }
         foreach ($config->children() as $child) {
-            $this->processConfig($child);
+            switch ($child->getName())
+            {
+                case 'module':
+                    $attributes = $child->attributes();
+                    $name = static::getFullName($attributes['name']->__toString(), $this->parentModule);
+                    $this->addModule($name);
+                    $this->processModule($name, $child);
+                break;
+            }
         }
     }
 
     /**
      * @param string $name
+     * @param string|null $parent
      */
     private function addModule($name)
     {
-        $this->modules[$name] = ['name' => $name, 'namespaces' => []];
+        $this->modules[$name] = ['name' => $name, 'namespaces' => [], 'parent'=>null];
+    }
+
+    private static function getFullName($name, $parent){
+        return $parent?$parent.'.'.$name:$name;
     }
 
     /**
      * @param string $name
      * @param \SimpleXMLElement $module
+     * @throws ConfigurationException
      */
     private function processModule($name, $module)
     {
+        $this->setModuleParent($name, $this->parentModule);
         foreach ($module->children() as $child) {
             switch ($child->getName()) {
                 case 'source':
                     $attributes = $child->attributes();
                     $this->addModuleSource($name, $attributes['namespace']->__toString());
                     break;
+                case 'submodules':
+                    $oldParent = $this->parentModule;
+                    $this->parentModule = $name;
+                    $this->processConfig($child);
+                    $this->parentModule = $oldParent;
+                   break;
             }
         }
+
     }
 
     private function addModuleSource($name, $namespace)
@@ -77,5 +92,13 @@ class Configuration
     public function getModules()
     {
         return $this->modules;
+    }
+
+    private function setModuleParent($name, $parentModule)
+    {
+        if (!array_key_exists($name, $this->modules)) {
+            throw new ConfigurationException("Module {$name} doesn't known.");
+        }
+        $this->modules[$name]['parent']= $parentModule;
     }
 }
