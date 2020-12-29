@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="ModularMonolith" namespace="Writ3it\CodingStandards\ModularMonolith">
+    <description>PHPCS Standards for modular monolith.</description>
+</ruleset>
