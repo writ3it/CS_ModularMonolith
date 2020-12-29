@@ -34,15 +34,27 @@ class ModuleDefinition
     {
         $this->name = $config['name'];
         foreach($config['namespaces'] as $namespace){
-            $this->namespaces[] = static::cleanNamespace($namespace);
+            $this->validateNamespace($namespace);
+            $this->namespaces[] = $namespace;
         }
         foreach($config['publicNamespaces'] as $namespace){
-            $namespace = static::cleanNamespace($namespace);
+            $this->validateNamespace($namespace);
             if (!$this->containsClass($namespace)){
                 $name = $this->getName();
                 throw new InvalidModuleDefinitionException("Public source ns: $namespace is outside of module $name.");
             }
             $this->publicNamespaces[] = $namespace;
+        }
+    }
+
+    /**
+     * @param string $namespace
+     * @throws InvalidModuleDefinitionException
+     */
+    public function validateNamespace($namespace){
+        if (!preg_match('/^([A-Za-z0-9_]+\\\\)+$/', $namespace)){
+            $name = $this->getName();
+            throw new InvalidModuleDefinitionException("Invalid namespace $namespace in $name module definition.");
         }
     }
 
@@ -98,7 +110,6 @@ class ModuleDefinition
      */
     public function isPrivateClass($className)
     {
-        var_dump($this->publicNamespaces, $className);
         return $this->containsClass($className) && !$this->collectionContainsClass($this->publicNamespaces, $className);
     }
 
