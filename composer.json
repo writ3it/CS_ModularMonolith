@@ -1,5 +1,5 @@
 {
-  "name": "writ3it/phpcs_modular-monolith",
+  "name": "writ3it/cs_modular-monolith",
   "description": "PHPCS Standards for modular monoliths.",
   "type": "phpcodesniffer-standard",
   "license": "MIT",
