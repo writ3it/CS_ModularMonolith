@@ -15,8 +15,8 @@ class ConfigurationTest extends TestCase
      */
     public function test_configurationNormalizing($exampleName)
     {
-        $configuration = new Configuration(__DIR__ . '/samples/' . $exampleName . '.xml');
-        $expected = json_decode(file_get_contents(__DIR__ . '/samples/' . $exampleName . '.json'), true);
+        $configuration = new Configuration(__DIR__ . '/../samples/' . $exampleName . '.xml');
+        $expected = json_decode(file_get_contents(__DIR__ . '/../samples/' . $exampleName . '.json'), true);
         self::assertEquals($expected,
             $configuration->getModules()
         );
