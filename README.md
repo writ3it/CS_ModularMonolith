@@ -1,6 +1,8 @@
 # ModularMonolith PHP_CodeSniffer standard
 PHPCS Standards for modular monolith. **This package is under development.**
 
+![](doc/sample.jpg)
+
 ## Why?
 
 There are three good reasons.
