@@ -1,0 +1,14 @@
+{
+    "name": "writ3it/phpcs_modular-monolith",
+    "description": "PHPCS Standards for modular monoliths.",
+    "type": "phpcodesniffer-standard",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "writ3it.tech",
+            "email": "git@writ3it.tech"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
