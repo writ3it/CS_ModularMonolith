@@ -13,7 +13,8 @@
   "prefer-stable": true,
   "require": {
     "php": ">=5.6",
-    "squizlabs/php_codesniffer": "^3.5"
+    "squizlabs/php_codesniffer": "^3.5",
+    "ext-simplexml": "*"
   },
   "autoload": {
     "psr-4": {
