@@ -9,7 +9,7 @@ use Writ3it\CodingStandards\ModularMonolith\Groups\NewGroup;
 use Writ3it\CodingStandards\ModularMonolith\Groups\UseGroup;
 use Writ3it\CodingStandards\ModularMonolith\Module\ModuleDefinition;
 
-class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
+class BrokenModuleIsolationSniff extends AbstractModuleSniff
 {
     public $supportedTokenizers = array('PHP');
     /**

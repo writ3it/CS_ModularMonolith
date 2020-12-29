@@ -18,7 +18,7 @@ class Configuration
 
     private function loadConfig($configPath)
     {
-        if (!file_exists($configPath)) {
+        if (!file_exists($configPath) || is_dir($configPath)) {
             throw new ConfigurationException("Modules definitions file {$configPath} not found.");
         }
         $config = simplexml_load_string(file_get_contents($configPath));
@@ -28,14 +28,13 @@ class Configuration
     private function processConfig(\SimpleXMLElement $config)
     {
         foreach ($config->children() as $child) {
-            switch ($child->getName())
-            {
+            switch ($child->getName()) {
                 case 'module':
                     $attributes = $child->attributes();
                     $name = static::getFullName($attributes['name']->__toString(), $this->parentModule);
                     $this->addModule($name);
                     $this->processModule($name, $child);
-                break;
+                    break;
             }
         }
     }
@@ -45,11 +44,12 @@ class Configuration
      */
     private function addModule($name)
     {
-        $this->modules[$name] = ['name' => $name, 'namespaces' => [], 'parent'=>null, 'publicNamespaces'=>[]];
+        $this->modules[$name] = ['name' => $name, 'namespaces' => [], 'parent' => null, 'publicNamespaces' => []];
     }
 
-    private static function getFullName($name, $parent){
-        return $parent?$parent.'.'.$name:$name;
+    private static function getFullName($name, $parent)
+    {
+        return $parent ? $parent . '.' . $name : $name;
     }
 
     /**
@@ -67,7 +67,7 @@ class Configuration
                     $this->addModuleSource($name, $attributes['namespace']->__toString());
                     break;
                 case 'public':
-                    foreach($child->children() as $source){
+                    foreach ($child->children() as $source) {
                         $attributes = $source->attributes();
                         $this->addModulePublicSource($name, $attributes['namespace']->__toString());
                     }
@@ -77,7 +77,7 @@ class Configuration
                     $this->parentModule = $name;
                     $this->processConfig($child);
                     $this->parentModule = $oldParent;
-                   break;
+                    break;
             }
         }
 
@@ -104,7 +104,7 @@ class Configuration
         if (!array_key_exists($name, $this->modules)) {
             throw new ConfigurationException("Module {$name} doesn't known.");
         }
-        $this->modules[$name]['parent']= $parentModule;
+        $this->modules[$name]['parent'] = $parentModule;
     }
 
     private function addModulePublicSource($name, $namespace)
