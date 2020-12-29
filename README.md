@@ -66,7 +66,7 @@ Full example file (Symfony):
     <file>public/</file>
     <file>src/</file>
     <file>tests/</file>
-    <config name="installed_paths" value="vendor/writ3it/phpcs_modular-monolith"/>
+    <config name="installed_paths" value="vendor/writ3it/cs_modular-monolith"/>
     <rule ref="ModularMonolith">
         <properties>
             <property name="modules_definitions_path" value="modules.xml"/>
