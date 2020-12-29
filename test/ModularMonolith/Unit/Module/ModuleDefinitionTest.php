@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ModularMonolith\Unit;
+namespace ModularMonolith\Unit\Module;
 
 
 use PHPUnit\Framework\TestCase;
@@ -21,6 +21,34 @@ class ModuleDefinitionTest extends TestCase
         self::assertFalse($module->containsClass('App\\Outside\\TestModule\\Foo\\Bar'));
         self::assertFalse($module->containsClass('App\\TestModule1\\Foo\\Bar'));
         self::assertFalse($module->containsClass('App1\\TestModule\\Foo\\Bar'));
+    }
+
+
+    public function test_privateClass_simpleModule()
+    {
+        $module = $this->getSimpleModule();
+
+        self::assertFalse($module->isPrivateClass('App\\TestModule\\Public\\Class'));
+        self::assertTrue($module->isPrivateClass('App\\TestModule\\Public'));
+        self::assertTrue($module->isPrivateClass('App\\TestModule\\Class'));
+        self::assertFalse($module->isPrivateClass('App\\Outside\\Public'));
+    }
+
+
+    public function test_privateClass_complexModule()
+    {
+        list($module, $child) = $this->getComplexModule();
+
+        self::assertTrue($module->isPrivateClass("App\\TestModule\\Class"));
+        self::assertTrue($module->isPrivateClass("App\\Test\\TestModule\\Class"));
+        self::assertFalse($module->isPrivateClass("App\\Outside\\TestModule\\Class"));
+        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested1\\Class"));
+        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested2\\Class"));
+        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested1\\Public\\Class"));
+
+        self::assertFalse($child->isPrivateClass("App\\TestModule\\Nested1\\Public\\Class"));
+        self::assertTrue($child->isPrivateClass("App\\TestModule\\Nested1\\Class"));
+        self::assertTrue($child->isPrivateClass("App\\TestModule\\Nested2\\Class"));
     }
 
 
@@ -83,7 +111,7 @@ class ModuleDefinitionTest extends TestCase
                 'App\\TestModule\\'
             ],
             'publicNamespaces' => [
-
+                'App\\TestModule\\Public\\'
             ]
         ]);
     }
