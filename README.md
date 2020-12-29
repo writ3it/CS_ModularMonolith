@@ -1,2 +1,2 @@
 # PHP_CodeSniffer_ModularMonolith
-PHPCS Standards for modular monoliths.
+PHPCS Standards for modular monolith.
