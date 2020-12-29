@@ -28,6 +28,7 @@ class ModuleRecognizer
      */
     public function getModuleNameByNamespace($namespaceOrFullClassName)
     {
+        $namespaceOrFullClassName = ModuleDefinition::cleanNamespace($namespaceOrFullClassName);
         foreach ($this->modules as $module) {
             /** @var ModuleDefinition $module */
             if ($module->containsClass($namespaceOrFullClassName)) {

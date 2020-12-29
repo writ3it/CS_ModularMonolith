@@ -56,17 +56,40 @@ abstract class AbstractGroup
         $this->matchedContentTokens = [];
     }
 
-    public function getContentAsString()
+    /**
+     * @param string $glue
+     * @return string
+     */
+    public function getContentAsString($glue='')
     {
-        $contents = [];
-        foreach ($this->matchedContentTokens as $token) {
-            $contents[] = $token['content'];
-        }
-        return implode('', $contents);
+        $contents = $this->getContent();
+        return implode($glue, $contents);
     }
 
     public function getSupportedTokens()
     {
         return array_merge($this->contentTokens, $this->openingTokens, $this->closeTokens);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getContent()
+    {
+        $contents = [];
+        foreach ($this->matchedContentTokens as $token) {
+            $contents[] = $token['content'];
+        }
+        return $contents;
+    }
+
+    public function overrideContentByType($tokenCode, $newContent)
+    {
+        foreach($this->matchedContentTokens as &$token){
+            if ($token['code'] === $tokenCode){
+                $token['content'] = $newContent;
+            }
+        }
     }
 }

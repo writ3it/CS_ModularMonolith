@@ -6,6 +6,7 @@ namespace Writ3it\CodingStandards\ModularMonolith\Sniffs\General;
 use Writ3it\CodingStandards\ModularMonolith\AbstractGroup;
 use Writ3it\CodingStandards\ModularMonolith\AbstractModuleSniff;
 use Writ3it\CodingStandards\ModularMonolith\Groups\NamespaceGroup;
+use Writ3it\CodingStandards\ModularMonolith\Groups\NewGroup;
 use Writ3it\CodingStandards\ModularMonolith\Groups\UseGroup;
 use Writ3it\CodingStandards\ModularMonolith\Module\ModuleDefinition;
 
@@ -27,7 +28,8 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
     {
         $this->groups = array(
             new NamespaceGroup([$this, 'processNamespace']),
-            new UseGroup([$this, 'processUse'])
+            new UseGroup([$this, 'processUse']),
+            new NewGroup([$this, 'processUse'])
         );
     }
 
@@ -36,6 +38,7 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
      */
     public function processNamespace($group)
     {
+        $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
         $namespace = $group->getContentAsString();
         $this->clientModule = $this->moduleRecognizer->getModuleNameByNamespace($namespace);
     }
@@ -45,6 +48,7 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
      */
     public function processUse($group)
     {
+        $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
         $class = $group->getContentAsString();
         $dependencyModule = $this->moduleRecognizer->getModuleNameByNamespace($class);
         if ($this->clientModule && $dependencyModule && !$this->clientModule->equals($dependencyModule)) {

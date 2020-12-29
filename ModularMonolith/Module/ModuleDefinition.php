@@ -6,6 +6,7 @@ namespace Writ3it\CodingStandards\ModularMonolith\Module;
 
 class ModuleDefinition
 {
+    const NS_SEPARATOR = '\\';
     /**
      * @var string
      */
@@ -18,7 +19,18 @@ class ModuleDefinition
     public function __construct($config)
     {
         $this->name = $config['name'];
-        $this->namespaces = $config['namespaces'];
+        foreach($config['namespaces'] as $namespace){
+            $this->namespaces[] = static::cleanNamespace($namespace);
+        }
+    }
+
+    /**
+     * @param string $namespace
+     * @return string
+     */
+    public static function cleanNamespace($namespace)
+    {
+        return ltrim($namespace,self::NS_SEPARATOR).self::NS_SEPARATOR;
     }
 
     /**
