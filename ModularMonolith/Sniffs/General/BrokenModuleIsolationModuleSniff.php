@@ -7,6 +7,7 @@ use Writ3it\CodingStandards\ModularMonolith\AbstractGroup;
 use Writ3it\CodingStandards\ModularMonolith\AbstractModuleSniff;
 use Writ3it\CodingStandards\ModularMonolith\Groups\NamespaceGroup;
 use Writ3it\CodingStandards\ModularMonolith\Groups\UseGroup;
+use Writ3it\CodingStandards\ModularMonolith\Module\ModuleDefinition;
 
 class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
 {
@@ -17,7 +18,7 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
     public $groups;
 
     /**
-     * @var \Writ3it\CodingStandards\ModularMonolith\Module\ModuleDefinition|null
+     * @var ModuleDefinition|null
      */
     private $clientModule = null;
 
@@ -49,7 +50,7 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
         if ($this->clientModule && $dependencyModule && !$this->clientModule->equals($dependencyModule)) {
             $clientModuleName = $this->clientModule->getName();
             $dependencyModuleName = $dependencyModule->getName();
-            $this->addError("Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $class);
+            $this->addError("BrokenBoundary","Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $class);
         }
     }
 

@@ -84,11 +84,12 @@ abstract class AbstractModuleSniff implements Sniff
     }
 
     /**
+     * @param string $code
      * @param string $message
      * @param string $content
      */
-    public function addError($message, $content)
+    public function addError($code, $message, $content)
     {
-        $this->phpcsFile->addError($message, $this->stackPtr, 'Found', $content);
+        $this->phpcsFile->addError($message, $this->stackPtr, $code, $content);
     }
 }
