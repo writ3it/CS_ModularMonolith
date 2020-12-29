@@ -38,7 +38,7 @@ $ composer require --dev writ3it/cs_modular-monolith
 
 #### Step 2. Create or extend your phpcs.xml.dist
 
-If you have another rulset file, add lines below:
+If you have another ruleset file, add the following lines:
 ```xml
 <config name="installed_paths" value="vendor/writ3it/cs_modular-monolith"/>
 <rule ref="ModularMonolith">
