@@ -8,8 +8,8 @@ abstract class AbstractGroup
 {
     const STATE_CLOSED = 0;
     const STATE_OPEN = 1;
-    public $openingToken;
-    public $closeToken;
+    public $openingTokens;
+    public $closeTokens;
     public $contentTokens = [];
 
     public $matchedContentTokens = [];
@@ -32,7 +32,7 @@ abstract class AbstractGroup
 
     public function processToken($token)
     {
-        if (self::STATE_CLOSED === $this->state && in_array($token['code'], $this->openingToken, true)) {
+        if (self::STATE_CLOSED === $this->state && in_array($token['code'], $this->openingTokens, true)) {
             $this->reset();
             $this->state = self::STATE_OPEN;
             return;
@@ -43,7 +43,7 @@ abstract class AbstractGroup
             return;
         }
 
-        if (self::STATE_OPEN === $this->state && in_array($token['code'], $this->closeToken, true)) {
+        if (self::STATE_OPEN === $this->state && in_array($token['code'], $this->closeTokens, true)) {
             $this->state = self::STATE_CLOSED;
             $callback = $this->processGroupCallback;
             $callback && $callback($this);
@@ -67,6 +67,6 @@ abstract class AbstractGroup
 
     public function getSupportedTokens()
     {
-        return array_merge($this->contentTokens, $this->openingToken, $this->closeToken);
+        return array_merge($this->contentTokens, $this->openingTokens, $this->closeTokens);
     }
 }
