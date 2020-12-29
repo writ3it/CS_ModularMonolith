@@ -27,7 +27,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Writ3it\\CodingStandards\\Tests\\": "test/"
+      "Writ3it\\CodingStandards\\Tests\\": "test/",
     }
   },
   "require-dev": {

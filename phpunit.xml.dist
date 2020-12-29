@@ -8,11 +8,17 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="./test/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Modular Monolith Standard Test Suite">
+        <testsuite name="Modular Monolith Standard Elements Test Suite">
             <directory>test</directory>
         </testsuite>
+
+        <testsuite name="Modular Monolith Standard PHPCS Test Suite">
+            <file>./vendor/squizlabs/php_codesniffer/tests/Standards/AllSniffs.php</file>
+        </testsuite>
     </testsuites>
+    <listeners>
+        <listener class="Writ3it\CodingStandards\Tests\Bootstrap\Listener" file="test/Bootstrap/Listener.php"/>
+    </listeners>
 </phpunit>
