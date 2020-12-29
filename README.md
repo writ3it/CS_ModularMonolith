@@ -16,7 +16,7 @@ You can force standard while collaborating through CI/CD process.
 Monolith is very popular architecture, but it's a hell for developers.
 Monolithic application (sooner or later) is often called "legacy code". 
 The alternative - isolation provided by composer package feature often is too strong. 
-Package system offers more flexible module implementation.
+Language-level package system offers more flexible module implementation.
 
 #### Reason 3.
 Deptrac which has a most similar feature isn't integrated with Phpstorm. PHP_CodeSniffer is.
@@ -120,6 +120,7 @@ Execute in your project root directory:
 - [x] Validation of modules boundaries. (MVP, 1.0) 
 - [x] Validation of nested modules boundaries.(MVP, 1.0)
 - [x] Possible to define public module interface that is accessible through boundaries. (MVP, 1.0)
+- [ ] Usability improvements. (MVP, 1.0)
 - [ ] Tests (1.0)
 - [ ] Documentation (1.0)
 - [ ] Drawing of modules dependency net. (1.0)

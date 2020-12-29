@@ -82,7 +82,8 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
             && $dependencyModule->isPrivateClass($className)) {
             $clientModuleName = $this->clientModule->getName();
             $dependencyModuleName = $dependencyModule->getName();
-            $this->addError("BrokenBoundary","Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $className);
+            $message = "Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName. Redesign your code.";
+            $this->addError("BrokenBoundary",$message, $className);
         }
     }
 
