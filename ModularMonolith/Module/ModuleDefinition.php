@@ -4,6 +4,8 @@
 namespace Writ3it\CodingStandards\ModularMonolith\Module;
 
 
+use Writ3it\CodingStandards\ModularMonolith\Exception\InvalidModuleDefinitionException;
+
 class ModuleDefinition
 {
     const NS_SEPARATOR = '\\';
@@ -23,12 +25,24 @@ class ModuleDefinition
      * @var self[]
      */
     private $children = [];
+    /**
+     * @var array
+     */
+    private $publicNamespaces = [];
 
     public function __construct($config)
     {
         $this->name = $config['name'];
         foreach($config['namespaces'] as $namespace){
             $this->namespaces[] = static::cleanNamespace($namespace);
+        }
+        foreach($config['publicNamespaces'] as $namespace){
+            $namespace = static::cleanNamespace($namespace);
+            if (!$this->containsClass($namespace)){
+                $name = $this->getName();
+                throw new InvalidModuleDefinitionException("Public source ns: $namespace is outside of module $name.");
+            }
+            $this->publicNamespaces[] = $namespace;
         }
     }
 
@@ -51,7 +65,11 @@ class ModuleDefinition
      */
     public function containsClass($className)
     {
-        foreach ($this->namespaces as $namespace) {
+       return $this->collectionContainsClass($this->namespaces, $className);
+    }
+
+    private function collectionContainsClass(&$collection, $className){
+        foreach ($collection as $namespace) {
             $prefix = substr($className, 0, strlen($namespace));
             if ($prefix === $namespace) {
                 return true;
@@ -71,6 +89,17 @@ class ModuleDefinition
             }
         }
         return false;
+    }
+
+
+    /**
+     * @param $className
+     * @return bool
+     */
+    public function isPrivateClass($className)
+    {
+        var_dump($this->publicNamespaces, $className);
+        return $this->containsClass($className) && !$this->collectionContainsClass($this->publicNamespaces, $className);
     }
 
     /**
@@ -111,7 +140,7 @@ class ModuleDefinition
     public function addChild($toAdd)
     {
         foreach($this->children as $name=>$child){
-            if ($child == $toAdd){
+            if ($child === $toAdd){
                 return;
             }
         }

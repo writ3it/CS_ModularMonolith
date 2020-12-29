@@ -42,11 +42,10 @@ class Configuration
 
     /**
      * @param string $name
-     * @param string|null $parent
      */
     private function addModule($name)
     {
-        $this->modules[$name] = ['name' => $name, 'namespaces' => [], 'parent'=>null];
+        $this->modules[$name] = ['name' => $name, 'namespaces' => [], 'parent'=>null, 'publicNamespaces'=>[]];
     }
 
     private static function getFullName($name, $parent){
@@ -66,6 +65,12 @@ class Configuration
                 case 'source':
                     $attributes = $child->attributes();
                     $this->addModuleSource($name, $attributes['namespace']->__toString());
+                    break;
+                case 'public':
+                    foreach($child->children() as $source){
+                        $attributes = $source->attributes();
+                        $this->addModulePublicSource($name, $attributes['namespace']->__toString());
+                    }
                     break;
                 case 'submodules':
                     $oldParent = $this->parentModule;
@@ -100,5 +105,13 @@ class Configuration
             throw new ConfigurationException("Module {$name} doesn't known.");
         }
         $this->modules[$name]['parent']= $parentModule;
+    }
+
+    private function addModulePublicSource($name, $namespace)
+    {
+        if (!array_key_exists($name, $this->modules)) {
+            throw new ConfigurationException("You have to use <source/> at <module/> element.");
+        }
+        $this->modules[$name]['publicNamespaces'][] = $namespace;
     }
 }

@@ -76,7 +76,10 @@ class BrokenModuleIsolationModuleSniff extends AbstractModuleSniff
 
     private function checkBoundaryWith($className){
         $dependencyModule = $this->moduleRecognizer->getModuleNameByNamespace($className);
-        if ($this->clientModule && $dependencyModule && !$this->clientModule->equals($dependencyModule)) {
+        if ($this->clientModule
+            && $dependencyModule
+            && !$this->clientModule->equals($dependencyModule)
+            && $dependencyModule->isPrivateClass($className)) {
             $clientModuleName = $this->clientModule->getName();
             $dependencyModuleName = $dependencyModule->getName();
             $this->addError("BrokenBoundary","Module $clientModuleName breaks the boundary by referencing the module $dependencyModuleName.", $className);
