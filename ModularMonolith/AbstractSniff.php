@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Writ3it\ModularMonolithCs;
+namespace Writ3it\CodingStandards\ModularMonolith;
 
 
 use PHP_CodeSniffer\Files\File;
@@ -39,5 +39,13 @@ abstract class AbstractSniff implements Sniff
         foreach ($this->groups as $group) {
             $group->processToken($tokens[$stackPtr]);
         }
+    }
+
+    /**
+     * @return \PHP_CodeSniffer\Config|null
+     */
+    protected function config()
+    {
+        return $this->phpcsFile->config;
     }
 }

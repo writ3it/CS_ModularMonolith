@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Writ3it\ModularMonolithCs\Groups;
+namespace Writ3it\CodingStandards\ModularMonolith\Groups;
 
 
-use Writ3it\ModularMonolithCs\AbstractGroup;
+use Writ3it\CodingStandards\ModularMonolith\AbstractGroup;
 
 class NamespaceGroup extends AbstractGroup
 {

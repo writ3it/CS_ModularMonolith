@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Writ3it\\ModularMonolithCs\\": "ModularMonolith/"
+      "Writ3it\\CodingStandards\\ModularMonolith\\": "ModularMonolith/"
     }
   }
 }

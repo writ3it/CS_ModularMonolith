@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Writ3it\ModularMonolithCs;
+namespace Writ3it\CodingStandards\ModularMonolith;
 
 
 abstract class AbstractGroup
