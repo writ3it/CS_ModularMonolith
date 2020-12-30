@@ -81,7 +81,8 @@ class BrokenModuleIsolationSniff extends AbstractModuleSniff
         $group->overrideContentByType(ModuleDefinition::NS_SEPARATOR, T_NS_SEPARATOR);
         $class = $group->getContentAsString();
         $this->checkBoundaryWith($class);
-        if ($class{0} !== ModuleDefinition::NS_SEPARATOR) {
+        if (strlen($class) > 0
+            && $class{0} !== ModuleDefinition::NS_SEPARATOR) {
             $possibleClass = $this->currentNamespace . ModuleDefinition::NS_SEPARATOR . $class;
             $this->checkBoundaryWith($possibleClass);
         }
