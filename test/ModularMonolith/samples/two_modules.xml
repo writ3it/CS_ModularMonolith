@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modules>
+    <module name="ModuleOne">
+        <source namespace="\App\ModuleOne\Part1\"/>
+        <source namespace="\App\ModuleOne\Part2\"/>
+        <source namespace="\App\ModuleOne\Part3\"/>
+        <source namespace="\App\ModuleOne\Part4\"/>
+        <public>
+            <source namespace="\App\ModuleOne\Part1\"/>
+            <source namespace="\App\ModuleOne\Part2\Subnamespace\"/>
+        </public>
+    </module>
+    <module name="ModuleTwo">
+        <source namespace="\App\ModuleTwo\Part1\"/>
+        <source namespace="\App\ModuleTwo\Part2\"/>
+        <public>
+            <source namespace="\App\ModuleTwo\Part2\Subnamespace\"/>
+        </public>
+    </module>
+</modules>

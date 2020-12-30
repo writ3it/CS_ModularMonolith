@@ -30,16 +30,22 @@ class ModuleDefinition
      */
     private $publicNamespaces = [];
 
+    /**
+     * ModuleDefinition constructor.
+     * @param $config
+     * @throws InvalidModuleDefinitionException
+     * @internal
+     */
     public function __construct($config)
     {
         $this->name = $config['name'];
-        foreach($config['namespaces'] as $namespace){
+        foreach ($config['namespaces'] as $namespace) {
             $this->validateNamespace($namespace);
             $this->namespaces[] = $namespace;
         }
-        foreach($config['publicNamespaces'] as $namespace){
+        foreach ($config['publicNamespaces'] as $namespace) {
             $this->validateNamespace($namespace);
-            if (!$this->containsClass($namespace)){
+            if (!$this->containsClass($namespace)) {
                 $name = $this->getName();
                 throw new InvalidModuleDefinitionException("Public source ns: $namespace is outside of module $name.");
             }
@@ -51,8 +57,9 @@ class ModuleDefinition
      * @param string $namespace
      * @throws InvalidModuleDefinitionException
      */
-    public function validateNamespace($namespace){
-        if (!preg_match('/^([A-Za-z0-9_]+\\\\)+$/', $namespace)){
+    public function validateNamespace($namespace)
+    {
+        if (!preg_match('/^\\\\([A-Za-z0-9_]+\\\\)+$/', $namespace)) {
             $name = $this->getName();
             throw new InvalidModuleDefinitionException("Invalid namespace $namespace in $name module definition.");
         }
@@ -64,10 +71,11 @@ class ModuleDefinition
      */
     public static function cleanNamespace($namespace)
     {
-        return ltrim($namespace,self::NS_SEPARATOR).self::NS_SEPARATOR;
+        return ltrim($namespace, self::NS_SEPARATOR) . self::NS_SEPARATOR;
     }
 
-    protected function setParent($module){
+    protected function setParent($module)
+    {
         $this->parentModule = $module;
     }
 
@@ -77,10 +85,21 @@ class ModuleDefinition
      */
     public function containsClass($className)
     {
-       return $this->collectionContainsClass($this->namespaces, $className);
+        return $this->collectionContainsClass($this->namespaces, $className) && !$this->childrenContainsClass($className);
     }
 
-    private function collectionContainsClass(&$collection, $className){
+    /**
+     * @param $className
+     * @return bool
+     */
+    public function containsClassOrChildrenContains($className)
+    {
+        return $this->collectionContainsClass($this->namespaces, $className);
+    }
+
+    private function collectionContainsClass(&$collection, $className)
+    {
+        $className = self::NS_SEPARATOR . ltrim($className, self::NS_SEPARATOR);
         foreach ($collection as $namespace) {
             $prefix = substr($className, 0, strlen($namespace));
             if ($prefix === $namespace) {
@@ -94,9 +113,10 @@ class ModuleDefinition
      * @param $className
      * @return bool
      */
-    public function childrenContainsClass($className){
-        foreach($this->children as $child){
-            if ($child->containsClass($className)){
+    public function childrenContainsClass($className)
+    {
+        foreach ($this->children as $child) {
+            if ($child->containsClass($className)) {
                 return true;
             }
         }
@@ -138,20 +158,21 @@ class ModuleDefinition
      */
     public function removeChild($toRemove)
     {
-        foreach($this->children as $name=>$child){
-            if ($child === $toRemove){
+        foreach ($this->children as $name => $child) {
+            if ($child === $toRemove) {
                 unset($this->children[$name]);
                 $child->setParent(null);
             }
         }
     }
+
     /**
      * @param self $toAdd
      */
     public function addChild($toAdd)
     {
-        foreach($this->children as $name=>$child){
-            if ($child === $toAdd){
+        foreach ($this->children as $name => $child) {
+            if ($child === $toAdd) {
                 return;
             }
         }

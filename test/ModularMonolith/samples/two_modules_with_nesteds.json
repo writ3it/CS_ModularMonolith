@@ -1,0 +1,55 @@
+{
+  "ModuleOne": {
+    "name": "ModuleOne",
+    "parent": null,
+    "namespaces": [
+      "\\App\\ModuleOne\\Part1\\",
+      "\\App\\ModuleOne\\Part2\\",
+      "\\App\\ModuleOne\\Part3\\",
+      "\\App\\ModuleOne\\Part4\\"
+    ],
+    "publicNamespaces": [
+      "\\App\\ModuleOne\\Part1\\",
+      "\\App\\ModuleOne\\Part2\\Subnamespace\\"
+    ]
+  },
+  "ModuleOne.ModuleOneNested": {
+    "name": "ModuleOne.ModuleOneNested",
+    "parent": "ModuleOne",
+    "namespaces": [
+      "\\App\\ModuleOne\\Nested\\"
+    ],
+    "publicNamespaces": [
+      "\\App\\ModuleOne\\Nested\\Shared\\"
+    ]
+  },
+  "ModuleTwo.ModuleTwoNested": {
+    "name": "ModuleTwo.ModuleTwoNested",
+    "parent": "ModuleTwo",
+    "namespaces": [
+      "\\App\\ModuleTwo\\Nested\\"
+    ],
+    "publicNamespaces": [
+      "\\App\\ModuleTwo\\Nested\\Shared\\"
+    ]
+  },
+  "ModuleTwo.ModuleTwoNested.ModuleTwoNested2lvl": {
+    "name": "ModuleTwo.ModuleTwoNested.ModuleTwoNested2lvl",
+    "parent": "ModuleTwo.ModuleTwoNested",
+    "namespaces": [
+      "\\App\\ModuleTwo\\Nested\\Nested2\\"
+    ],
+    "publicNamespaces": []
+  },
+  "ModuleTwo": {
+    "name": "ModuleTwo",
+    "parent": null,
+    "namespaces": [
+      "\\App\\ModuleTwo\\Part1\\",
+      "\\App\\ModuleTwo\\Part2\\"
+    ],
+    "publicNamespaces": [
+      "\\App\\ModuleTwo\\Part2\\Subnamespace\\"
+    ]
+  }
+}

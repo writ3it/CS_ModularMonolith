@@ -87,18 +87,18 @@ Example file:
 <?xml version='1.0' encoding='UTF-8'?>
 <modules>
     <module name="ModuleOne">
-        <source namespace="App\ModuleOne\"/>
+        <source namespace="\App\ModuleOne\"/>
         <submodules>
             <module name="NestedModule">
-                <source namespace="App\ModuleOne\NestedModule\"/>
+                <source namespace="\App\ModuleOne\NestedModule\"/>
                 <public>
-                    <source namespace="App\ModuleOne\NestedModule\Port\"/>
+                    <source namespace="\App\ModuleOne\NestedModule\Port\"/>
                 </public>
             </module>
         </submodules>
     </module>
     <module name="ModuleTwo">
-        <source namespace="App\ModuleTwo\"/>
+        <source namespace="\App\ModuleTwo\"/>
     </module>
 </modules>
 ```

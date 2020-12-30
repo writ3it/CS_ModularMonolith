@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modules>
+    <module name="ModuleOne">
+        <source namespace="\Writ3it\CodingStandards\Tests\ModularMonolith\SampleModules\ModuleOne\"/>
+    </module>
+    <module name="ModuleTwo">
+        <source namespace="\Writ3it\CodingStandards\Tests\ModularMonolith\SampleModules\ModuleTwo\"/>
+    </module>
+</modules>
