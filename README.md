@@ -121,7 +121,7 @@ Execute in your project root directory:
 - [x] Validation of nested modules boundaries.(MVP, 1.0)
 - [x] Possible to define public module interface that is accessible through boundaries. (MVP, 1.0)
 - [ ] Usability improvements. (MVP, 1.0)
-- [ ] Tests (1.0)
+- [x] Tests (1.0)
 - [ ] Documentation (1.0)
 - [ ] Drawing of modules dependency net. (1.0)
 - [ ] Validation of length of dependency paths. (future)
