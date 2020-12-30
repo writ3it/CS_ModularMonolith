@@ -103,6 +103,8 @@ Example file:
 </modules>
 ```
 
+[See file overview](doc/modules_xml_overview.md)
+
 #### Step 4. (CLI) Test your code!
 
 Execute in your project root directory:
@@ -121,11 +123,12 @@ Execute in your project root directory:
 - [x] Validation of nested modules boundaries.(MVP, 1.0)
 - [x] Possible to define public module interface that is accessible through boundaries. (MVP, 1.0)
 - [ ] Usability improvements. (MVP, 1.0)
-- [x] Tests (1.0)
-- [ ] Documentation (1.0)
-- [ ] Drawing of modules dependency net. (1.0)
-- [ ] Validation of length of dependency paths. (future)
-- [ ] Validation of dependency cycles. (future)
+- [x] Tests. (1.0)
+- [ ] Documentation. (1.0)
+- [ ] Configuration validation. (future)
+- [ ] Drawing of modules dependency net. (possibly)
+- [ ] Validation of length of dependency paths. (possibly)
+- [ ] Validation of dependency cycles. (possibly)
 
 ## Contributing
 
