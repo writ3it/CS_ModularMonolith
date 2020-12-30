@@ -59,7 +59,7 @@ class ModuleDefinition
      */
     public function validateNamespace($namespace)
     {
-        if (!preg_match('/^([A-Za-z0-9_]+\\\\)+$/', $namespace)) {
+        if (!preg_match('/^\\\\([A-Za-z0-9_]+\\\\)+$/', $namespace)) {
             $name = $this->getName();
             throw new InvalidModuleDefinitionException("Invalid namespace $namespace in $name module definition.");
         }
@@ -99,6 +99,7 @@ class ModuleDefinition
 
     private function collectionContainsClass(&$collection, $className)
     {
+        $className = self::NS_SEPARATOR . ltrim($className, self::NS_SEPARATOR);
         foreach ($collection as $namespace) {
             $prefix = substr($className, 0, strlen($namespace));
             if ($prefix === $namespace) {

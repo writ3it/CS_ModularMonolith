@@ -15,12 +15,12 @@ class ModuleDefinitionTest extends TestCase
     {
         $module = $this->getSimpleModule();
 
-        self::assertTrue($module->containsClass('App\\TestModule\\Foo\\Bar'));
-        self::assertTrue($module->containsClass('App\\TestModule\\FooBar'));
+        self::assertTrue($module->containsClass('\\App\\TestModule\\Foo\\Bar'));
+        self::assertTrue($module->containsClass('\\App\\TestModule\\FooBar'));
 
-        self::assertFalse($module->containsClass('App\\Outside\\TestModule\\Foo\\Bar'));
-        self::assertFalse($module->containsClass('App\\TestModule1\\Foo\\Bar'));
-        self::assertFalse($module->containsClass('App1\\TestModule\\Foo\\Bar'));
+        self::assertFalse($module->containsClass('\\App\\Outside\\TestModule\\Foo\\Bar'));
+        self::assertFalse($module->containsClass('\\App\\TestModule1\\Foo\\Bar'));
+        self::assertFalse($module->containsClass('\\App1\\TestModule\\Foo\\Bar'));
     }
 
 
@@ -28,10 +28,10 @@ class ModuleDefinitionTest extends TestCase
     {
         $module = $this->getSimpleModule();
 
-        self::assertFalse($module->isPrivateClass('App\\TestModule\\Public\\Class'));
-        self::assertTrue($module->isPrivateClass('App\\TestModule\\Public'));
-        self::assertTrue($module->isPrivateClass('App\\TestModule\\Class'));
-        self::assertFalse($module->isPrivateClass('App\\Outside\\Public'));
+        self::assertFalse($module->isPrivateClass('\\App\\TestModule\\Public\\Class'));
+        self::assertTrue($module->isPrivateClass('\\App\\TestModule\\Public'));
+        self::assertTrue($module->isPrivateClass('\\App\\TestModule\\Class'));
+        self::assertFalse($module->isPrivateClass('\\App\\Outside\\Public'));
     }
 
 
@@ -39,16 +39,16 @@ class ModuleDefinitionTest extends TestCase
     {
         list($module, $child) = $this->getComplexModule();
 
-        self::assertTrue($module->isPrivateClass("App\\TestModule\\Class"));
-        self::assertTrue($module->isPrivateClass("App\\Test\\TestModule\\Class"));
-        self::assertFalse($module->isPrivateClass("App\\Outside\\TestModule\\Class"));
-        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested1\\Class"));
-        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested2\\Class"));
-        self::assertFalse($module->isPrivateClass("App\\TestModule\\Nested1\\Public\\Class"));
+        self::assertTrue($module->isPrivateClass("\\App\\TestModule\\Class"));
+        self::assertTrue($module->isPrivateClass("\\App\\Test\\TestModule\\Class"));
+        self::assertFalse($module->isPrivateClass("\\App\\Outside\\TestModule\\Class"));
+        self::assertFalse($module->isPrivateClass("\\App\\TestModule\\Nested1\\Class"));
+        self::assertFalse($module->isPrivateClass("\\App\\TestModule\\Nested2\\Class"));
+        self::assertFalse($module->isPrivateClass("\\App\\TestModule\\Nested1\\Public\\Class"));
 
-        self::assertFalse($child->isPrivateClass("App\\TestModule\\Nested1\\Public\\Class"));
-        self::assertTrue($child->isPrivateClass("App\\TestModule\\Nested1\\Class"));
-        self::assertTrue($child->isPrivateClass("App\\TestModule\\Nested2\\Class"));
+        self::assertFalse($child->isPrivateClass("\\App\\TestModule\\Nested1\\Public\\Class"));
+        self::assertTrue($child->isPrivateClass("\\App\\TestModule\\Nested1\\Class"));
+        self::assertTrue($child->isPrivateClass("\\App\\TestModule\\Nested2\\Class"));
     }
 
 
@@ -56,25 +56,25 @@ class ModuleDefinitionTest extends TestCase
     {
         list($module, $child) = $this->getComplexModule();
 
-        self::assertTrue($module->containsClass('App\\TestModule\\Class'));
-        self::assertFalse($child->containsClass('App\\TestModule\\Class'));
+        self::assertTrue($module->containsClass('\\App\\TestModule\\Class'));
+        self::assertFalse($child->containsClass('\\App\\TestModule\\Class'));
 
-        self::assertTrue($module->containsClass('App\\Test\\TestModule\\Class'));
-        self::assertFalse($child->containsClass('App\\Test\\TestModule\\Class'));
+        self::assertTrue($module->containsClass('\\App\\Test\\TestModule\\Class'));
+        self::assertFalse($child->containsClass('\\App\\Test\\TestModule\\Class'));
 
-        self::assertTrue($module->containsClass('App\\TestModule\\Public\\Class'));
-        self::assertFalse($child->containsClass('App\\TestModule\\Public\\Class'));
+        self::assertTrue($module->containsClass('\\App\\TestModule\\Public\\Class'));
+        self::assertFalse($child->containsClass('\\App\\TestModule\\Public\\Class'));
 
-        self::assertFalse($module->containsClass('App\\TestModule\\Nested1\\Class'));
-        self::assertTrue($child->containsClass('App\\TestModule\\Nested1\\Class'));
+        self::assertFalse($module->containsClass('\\App\\TestModule\\Nested1\\Class'));
+        self::assertTrue($child->containsClass('\\App\\TestModule\\Nested1\\Class'));
 
-        self::assertFalse($module->containsClass('App\\TestModule\\Nested2\\Class'));
-        self::assertTrue($child->containsClass('App\\TestModule\\Nested2\\Class'));
+        self::assertFalse($module->containsClass('\\App\\TestModule\\Nested2\\Class'));
+        self::assertTrue($child->containsClass('\\App\\TestModule\\Nested2\\Class'));
 
-        self::assertFalse($module->containsClass('App\\TestModule\\Nested1\\Public\\Class'));
-        self::assertTrue($child->containsClass('App\\TestModule\\Nested1\\Public\\Class'));
-        self::assertFalse($module->containsClass('App\\Outside\\Class'));
-        self::assertFalse($child->containsClass('App\\Outside\\Class'));
+        self::assertFalse($module->containsClass('\\App\\TestModule\\Nested1\\Public\\Class'));
+        self::assertTrue($child->containsClass('\\App\\TestModule\\Nested1\\Public\\Class'));
+        self::assertFalse($module->containsClass('\\App\\Outside\\Class'));
+        self::assertFalse($child->containsClass('\\App\\Outside\\Class'));
     }
 
     private function getComplexModule()
@@ -82,21 +82,21 @@ class ModuleDefinitionTest extends TestCase
         $childModule = new ModuleDefinition([
             'name' => 'ChildModule',
             'namespaces' => [
-                'App\\TestModule\\Nested1\\',
-                'App\\TestModule\\Nested2\\'
+                '\\App\\TestModule\\Nested1\\',
+                '\\App\\TestModule\\Nested2\\'
             ],
             'publicNamespaces' => [
-                'App\\TestModule\\Nested1\\Public\\'
+                '\\App\\TestModule\\Nested1\\Public\\'
             ]
         ]);
         $module = new ModuleDefinition([
             'name' => 'TestModule',
             'namespaces' => [
-                'App\\TestModule\\',
-                'App\\Test\\TestModule\\'
+                '\\App\\TestModule\\',
+                '\\App\\Test\\TestModule\\'
             ],
             'publicNamespaces' => [
-                'App\\TestModule\\Public\\'
+                '\\App\\TestModule\\Public\\'
             ],
         ]);
         $module->addChild($childModule);
@@ -108,10 +108,10 @@ class ModuleDefinitionTest extends TestCase
         return new ModuleDefinition([
             'name' => 'TestModule',
             'namespaces' => [
-                'App\\TestModule\\'
+                '\\App\\TestModule\\'
             ],
             'publicNamespaces' => [
-                'App\\TestModule\\Public\\'
+                '\\App\\TestModule\\Public\\'
             ]
         ]);
     }

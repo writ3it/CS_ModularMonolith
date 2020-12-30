@@ -1,38 +1,38 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <modules>
     <module name="ModuleOne">
-        <source namespace="App\ModuleOne\Part1\"/>
-        <source namespace="App\ModuleOne\Part2\"/>
-        <source namespace="App\ModuleOne\Part3\"/>
-        <source namespace="App\ModuleOne\Part4\"/>
+        <source namespace="\App\ModuleOne\Part1\"/>
+        <source namespace="\App\ModuleOne\Part2\"/>
+        <source namespace="\App\ModuleOne\Part3\"/>
+        <source namespace="\App\ModuleOne\Part4\"/>
         <public>
-            <source namespace="App\ModuleOne\Part1\"/>
-            <source namespace="App\ModuleOne\Part2\Subnamespace\"/>
+            <source namespace="\App\ModuleOne\Part1\"/>
+            <source namespace="\App\ModuleOne\Part2\Subnamespace\"/>
         </public>
         <submodules>
             <module name="ModuleOneNested">
-                <source namespace="App\ModuleOne\Nested\"/>
+                <source namespace="\App\ModuleOne\Nested\"/>
                 <public>
-                    <source namespace="App\ModuleOne\Nested\Shared\"/>
+                    <source namespace="\App\ModuleOne\Nested\Shared\"/>
                 </public>
             </module>
         </submodules>
     </module>
     <module name="ModuleTwo">
-        <source namespace="App\ModuleTwo\Part1\"/>
-        <source namespace="App\ModuleTwo\Part2\"/>
+        <source namespace="\App\ModuleTwo\Part1\"/>
+        <source namespace="\App\ModuleTwo\Part2\"/>
         <public>
-            <source namespace="App\ModuleTwo\Part2\Subnamespace\"/>
+            <source namespace="\App\ModuleTwo\Part2\Subnamespace\"/>
         </public>
         <submodules>
             <module name="ModuleTwoNested">
-                <source namespace="App\ModuleTwo\Nested\"/>
+                <source namespace="\App\ModuleTwo\Nested\"/>
                 <public>
-                    <source namespace="App\ModuleTwo\Nested\Shared\"/>
+                    <source namespace="\App\ModuleTwo\Nested\Shared\"/>
                 </public>
                 <submodules>
                     <module name="ModuleTwoNested2lvl">
-                        <source namespace="App\ModuleTwo\Nested\Nested2\"/>
+                        <source namespace="\App\ModuleTwo\Nested\Nested2\"/>
                     </module>
                 </submodules>
             </module>
