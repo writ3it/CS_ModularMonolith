@@ -51,8 +51,9 @@ abstract class AbstractGroup
         }
     }
 
-    private function reset()
+    public function reset()
     {
+        $this->state = self::STATE_CLOSED;
         $this->matchedContentTokens = [];
     }
 

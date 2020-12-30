@@ -51,6 +51,7 @@ abstract class AbstractModuleSniff implements Sniff
             $this->initializeRecognizer();
         }
         if ($oldFile !== $this->phpcsFile) {
+            $this->resetGroups();
             $this->initializeFile();
         }
         $tokens = $phpcsFile->getTokens();
@@ -91,5 +92,12 @@ abstract class AbstractModuleSniff implements Sniff
     public function addError($code, $message, $content)
     {
         $this->phpcsFile->addError($message, $this->stackPtr, $code, $content);
+    }
+
+    private function resetGroups()
+    {
+        foreach ($this->groups as $group) {
+            $group->reset();
+        }
     }
 }
